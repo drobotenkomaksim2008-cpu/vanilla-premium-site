@@ -239,25 +239,36 @@ async function handleApi(req, res, pathname) {
 }
 
 function serveStatic(res, pathname) {
-  const safePath = pathname === "/" ? "/index.html" : pathname;
-  const filePath = path.normalize(path.join(ROOT, safePath));
-  if (!filePath.startsWith(ROOT)) {
-    res.writeHead(403);
-    res.end("Forbidden");
-    return;
-  }
+  const safePath =
+    pathname === "/" ? "index.html" : pathname.replace(/^\/+/, "");
+
+  const filePath = path.join(ROOT, safePath);
+
+  console.log("ROOT:", ROOT);
+  console.log("PATHNAME:", pathname);
+  console.log("FILEPATH:", filePath);
+
   fs.readFile(filePath, (error, data) => {
     if (error) {
-      res.writeHead(404, { "Content-Type": "text/plain; charset=utf-8" });
+      console.error("FILE ERROR:", error);
+
+      res.writeHead(404, {
+        "Content-Type": "text/plain; charset=utf-8"
+      });
+
       res.end("Not found");
       return;
     }
+
     const ext = path.extname(filePath).toLowerCase();
-    res.writeHead(200, { "Content-Type": mimeTypes[ext] || "application/octet-stream" });
+
+    res.writeHead(200, {
+      "Content-Type": mimeTypes[ext] || "application/octet-stream"
+    });
+
     res.end(data);
   });
 }
-
 const server = http.createServer(async (req, res) => {
   const url = new URL(req.url, `http://${req.headers.host}`);
   try {
