@@ -271,7 +271,6 @@ const server = http.createServer(async (req, res) => {
   }
 });
 
-ensureStore();
-server.listen(PORT, "127.0.0.1", () => {
-  console.log(`Vanilla backend is running: http://127.0.0.1:${PORT}`);
+server.listen(PORT, () => {
+  console.log(`Vanilla backend is running on port ${PORT}`);
 });
