@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanilla | Premium Coffee, Brunch & Club</title>
+  <meta name="description" content="Vanilla - премиальная кофейня с онлайн-заказом, QR-меню, программой лояльности Vanilla Club и бронированием через WhatsApp и Telegram.">
+  <meta name="keywords" content="Vanilla, кофейня, кофе, brunch, десерты, QR меню, Vanilla Club, доставка кофе">
+  <meta property="og:title" content="Vanilla Coffee House">
+  <meta property="og:description" content="Онлайн-заказ, Vanilla Club, QR-меню и премиальный европейский coffee experience.">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?auto=format&fit=crop&w=1200&q=80">
+  <meta name="theme-color" content="#f4eee5">
+  <link rel="preconnect" href="https://images.unsplash.com">
+  <link rel="stylesheet" href="styles.css">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "CafeOrCoffeeShop",
+    "name": "Vanilla",
+    "servesCuisine": ["Coffee", "Desserts", "Brunch"],
+    "priceRange": "$$",
+    "acceptsReservations": true,
+    "url": "https://vanilla.example",
+    "sameAs": ["https://instagram.com/vanilla.coffee"],
+    "potentialAction": {
+      "@type": "OrderAction",
+      "target": "https://vanilla.example/#order"
+    }
+  }
+  </script>
+</head>
+<body>
+  <div class="loader" id="loader">
+    <div class="loader-mark">V</div>
+  </div>
+
+  <header class="site-header">
+    <a href="#top" class="brand" aria-label="Vanilla home">
+      <span>Vanilla</span>
+      <small>Coffee House</small>
+    </a>
+    <nav class="main-nav" aria-label="Главная навигация">
+      <a href="#menu">Меню</a>
+      <a href="#club">Vanilla Club</a>
+      <a href="#offers">Акции</a>
+      <a href="#journal">Блог</a>
+    </nav>
+    <div class="header-actions">
+      <button class="icon-btn" id="openQr" aria-label="Открыть QR-меню" title="QR-меню">
+        <span class="qr-icon"></span>
+      </button>
+      <button class="pill-btn" id="openAccount">Кабинет</button>
+      <button class="cart-btn" id="openCart">Корзина <span id="cartCount">0</span></button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-media" aria-hidden="true"></div>
+      <div class="hero-content">
+        <p class="eyebrow">Since 2026 · Specialty Coffee · Brunch</p>
+        <h1>Vanilla</h1>
+        <p>Премиальная кофейня с онлайн-заказом, клубной картой, QR-меню и атмосферой современной европейской specialty-культуры.</p>
+        <div class="hero-actions">
+          <a class="primary-btn" href="#menu">Заказать сейчас</a>
+          <button class="secondary-btn" id="heroQr">Открыть QR-меню</button>
+        </div>
+      </div>
+    </section>
+
+    <section class="live-section" id="live">
+      <div class="live-copy">
+        <p class="eyebrow">Today at Vanilla</p>
+        <h2>Город заходит на кофе</h2>
+        <p>Свежие заказы, брони на вечер и свободные столики обновляются в моменте.</p>
+      </div>
+      <div class="live-grid">
+        <article class="live-card">
+          <span id="liveOrders">0</span>
+          <p>заказа готовятся сейчас</p>
+        </article>
+        <article class="live-card">
+          <span id="liveReservations">0</span>
+          <p>столика уже забронированы</p>
+        </article>
+        <article class="live-card status-card">
+          <span id="liveStatus">OPEN</span>
+          <p id="liveUpdated">бар работает до 23:00</p>
+        </article>
+      </div>
+      <button class="primary-btn" id="openReservation">Забронировать столик</button>
+    </section>
+
+    <section class="order-band" id="menu">
+      <div class="section-head">
+        <p class="eyebrow">Online Order</p>
+        <h2>Меню с умным поиском</h2>
+        <div class="search-shell">
+          <input id="menuSearch" type="search" placeholder="Поиск: латте, чизкейк, бранч" aria-label="Поиск по меню">
+        </div>
+      </div>
+      <div class="category-tabs" id="categoryTabs" aria-label="Фильтр по категориям"></div>
+      <div class="menu-grid" id="menuGrid"></div>
+    </section>
+
+    <section class="checkout-preview">
+      <div>
+        <p class="eyebrow">Checkout</p>
+        <h2>Самовывоз или доставка за пару кликов</h2>
+        <p>Корзина считает сумму автоматически, а оформление открывается в мягком glassmorphism-окне с выбором способа получения.</p>
+      </div>
+      <button class="primary-btn" id="openCartWide">Перейти к заказу</button>
+    </section>
+
+    <section class="club-section" id="club">
+      <div class="club-card">
+        <div class="virtual-card">
+          <span>Vanilla Club</span>
+          <strong id="bonusBalance">1 840</strong>
+          <small>бонусных баллов</small>
+        </div>
+        <div class="club-copy">
+          <p class="eyebrow">Loyalty</p>
+          <h2>Личный кабинет и бонусная карта</h2>
+          <p>Баллы начисляются за каждый заказ, сохраняются любимые блюда, бронирования и история покупок.</p>
+          <div class="club-stats">
+            <span><b>5%</b> с каждого заказа</span>
+            <span><b>12</b> избранных блюд</span>
+            <span><b>4</b> бронирования</span>
+          </div>
+        </div>
+      </div>
+      <div class="history-panel">
+        <h3>История накоплений</h3>
+        <ul id="bonusHistory"></ul>
+      </div>
+    </section>
+
+    <section class="offers-section" id="offers">
+      <div class="section-head">
+        <p class="eyebrow">Specials</p>
+        <h2>Специальные предложения</h2>
+      </div>
+      <div class="offer-grid">
+        <article class="offer-card dark">
+          <span>Акция недели</span>
+          <h3>Flat White + Basque Cheesecake</h3>
+          <p>Сет для постоянных гостей со скидкой 15%.</p>
+        </article>
+        <article class="offer-card photo one">
+          <span>Сезон</span>
+          <h3>Vanilla Cloud Latte</h3>
+          <p>Холодный латте с кремовой ванильной пеной.</p>
+        </article>
+        <article class="offer-card photo two">
+          <span>Новинка</span>
+          <h3>Pistachio Morning Croissant</h3>
+          <p>Свежая выпечка каждое утро до 12:00.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="social-section">
+      <div class="section-head">
+        <p class="eyebrow">Instagram</p>
+        <h2>Последние публикации</h2>
+        <a class="text-link" href="https://instagram.com/" target="_blank" rel="noreferrer">Перейти в профиль</a>
+      </div>
+      <div class="insta-loader" id="instaLoader"><span></span><span></span><span></span></div>
+      <div class="insta-grid" id="instaGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="journal-section" id="journal">
+      <div class="section-head">
+        <p class="eyebrow">Coffee Journal</p>
+        <h2>Блог кофейни</h2>
+      </div>
+      <div class="journal-grid">
+        <article>
+          <img src="https://images.unsplash.com/photo-1442512595331-e89e73853f31?auto=format&fit=crop&w=700&q=80" alt="Кофейные зерна">
+          <h3>Как мы выбираем зерно</h3>
+          <p>Происхождение, обжарка и вкус в одной понятной истории.</p>
+        </article>
+        <article>
+          <img src="https://images.unsplash.com/photo-1517701604599-bb29b565090c?auto=format&fit=crop&w=700&q=80" alt="Бариста готовит кофе">
+          <h3>Советы бариста для дома</h3>
+          <p>Температура, помол и молоко без лишней сложности.</p>
+        </article>
+        <article>
+          <img src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?auto=format&fit=crop&w=700&q=80" alt="Интерьер кофейни">
+          <h3>Новости Vanilla</h3>
+          <p>Новые завтраки, дегустации и клубные вечера.</p>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <aside class="floating-chat" aria-label="Быстрое бронирование">
+    <a class="whatsapp" href="https://wa.me/?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%B1%D1%80%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%BB%D0%B8%D0%BA%20%D0%B2%20Vanilla." target="_blank" rel="noreferrer">WA</a>
+    <a class="telegram" href="https://t.me/share/url?url=https%3A%2F%2Fvanilla.example&text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%2C%20%D1%85%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%B1%D1%80%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D1%82%D1%8C%20%D1%81%D1%82%D0%BE%D0%BB%D0%B8%D0%BA%20%D0%B2%20Vanilla." target="_blank" rel="noreferrer">TG</a>
+  </aside>
+
+  <div class="modal" id="cartModal" aria-hidden="true">
+    <div class="modal-panel">
+      <button class="modal-close" data-close="cartModal" aria-label="Закрыть">×</button>
+      <h2>Оформление заказа</h2>
+      <div id="cartItems" class="cart-items"></div>
+      <div class="delivery-toggle">
+        <label><input type="radio" name="delivery" value="Самовывоз" checked> Самовывоз</label>
+        <label><input type="radio" name="delivery" value="Доставка"> Доставка</label>
+      </div>
+      <div class="checkout-fields">
+        <input type="text" placeholder="Имя">
+        <input type="tel" placeholder="Телефон">
+        <input type="text" placeholder="Адрес или время самовывоза">
+      </div>
+      <div class="cart-total">Итого: <strong id="cartTotal">0 ₸</strong></div>
+      <button class="primary-btn full" id="submitOrder">Подтвердить заказ</button>
+    </div>
+  </div>
+
+  <div class="modal" id="qrModal" aria-hidden="true">
+    <div class="modal-panel qr-panel">
+      <button class="modal-close" data-close="qrModal" aria-label="Закрыть">×</button>
+      <h2>QR-меню Vanilla</h2>
+      <canvas id="qrCanvas" width="220" height="220" aria-label="QR-код меню"></canvas>
+      <p>Код можно разместить на столиках, стойке или печатных тейбл-тентах.</p>
+    </div>
+  </div>
+
+  <div class="modal" id="accountModal" aria-hidden="true">
+    <div class="modal-panel account-panel">
+      <button class="modal-close" data-close="accountModal" aria-label="Закрыть">×</button>
+      <h2>Личный кабинет</h2>
+      <div class="auth-grid">
+        <input type="email" placeholder="Email">
+        <input type="password" placeholder="Пароль">
+        <button class="primary-btn full">Войти</button>
+        <button class="secondary-btn full">Зарегистрироваться</button>
+      </div>
+      <div class="mini-dashboard">
+        <span>Заказы: <b>8</b></span>
+        <span>Избранное: <b>12</b></span>
+        <span>Бонусы: <b>1 840</b></span>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="reservationModal" aria-hidden="true">
+    <div class="modal-panel account-panel">
+      <button class="modal-close" data-close="reservationModal" aria-label="Закрыть">×</button>
+      <h2>Бронирование столика</h2>
+      <div class="auth-grid">
+        <input id="reservationName" type="text" placeholder="Имя">
+        <input id="reservationPhone" type="tel" placeholder="Телефон">
+        <input id="reservationGuests" type="number" min="1" max="12" value="2" placeholder="Гостей">
+        <input id="reservationTime" type="datetime-local">
+        <button class="primary-btn full" id="submitReservation">Забронировать</button>
+      </div>
+      <p class="form-note" id="reservationNote">После отправки бронь появится в живой статистике сайта.</p>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
